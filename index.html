@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calculator</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Kelly+Slab|Share+Tech+Mono" rel="stylesheet">
+        <link rel="stylesheet" href="css/styles.css">
+
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="js/script.js"></script>
+
+    </head>
+    <body>
+        <!-- Div with the full content-->
+        <div class="container-fluid main-div">
+
+
+            <!-- Calculator -->
+            <div class="calculator">
+                <p class="calc-text">Digital Calculator</p>
+                <!-- Display -->
+                <div class="calc-display">
+                    <!-- Limit of digits: 11 -->
+                    <p id="calc-display-id" class="calc-display-common calc-display-text">0</p>
+                    <!-- Limit of digits: 27 -->
+                    <p id="calc-display-preview-id" class="calc-display-common calc-display-preview-text">0</p>
+                </div>
+                <!-- Buttons -->
+                <div class="button-matrix">
+                    <!-- Buttons 1st line -->
+                    <div>
+                        <button id="button-ac-id" class="button-default button-red button-size-med button-margin">AC</button>
+                        <button id="button-ce-id" class="button-default button-red button-size-med button-margin">CE</button>
+                        <button id="button-div-id" class="button-operation button-default button-black button-size-med button-margin">&#247;</button>
+                        <button id="button-mul-id" class="button-operation button-default button-black button-size-med button-margin">x</button>
+
+                    </div>
+                    <!-- Buttons 2nd line -->
+                    <div>
+                        <button id="button-7-id" class="button-number button-default button-white button-size-med button-margin">7</button>
+                        <button id="button-8-id" class="button-number button-default button-white button-size-med button-margin">8</button>
+                        <button id="button-9-id" class="button-number button-default button-white button-size-med button-margin">9</button>
+                        <button id="button-sub-id" class="button-operation button-default button-black button-size-med button-margin">-</button>
+                    </div>
+                    <!-- Buttons 3rd line -->
+                    <div>
+                        <button id="button-4-id" class="button-number button-default button-white button-size-med button-margin">4</button>
+                        <button id="button-5-id" class="button-number button-default button-white button-size-med button-margin">5</button>
+                        <button id="button-6-id" class="button-number button-default button-white button-size-med button-margin">6</button>
+                        <button id="button-add-id" class="button-operation button-default button-black button-size-med button-margin">+</button>
+                    </div>
+                    <!-- Buttons 4th line & 5th line -->
+                    <div class="div-4-and-5">
+                        <div class="div-left">
+                            <button id="button-1-id" class="button-number button-default button-white button-size-med button-margin">1</button>
+                            <button id="button-2-id" class="button-number button-default button-white button-size-med button-margin">2</button>
+                            <button id="button-3-id" class="button-number button-default button-white button-size-med button-margin">3</button>
+
+                            <button id="button-0-id" class="button-number button-default button-white button-size-large button-margin">0</button>
+                            <button id="button-dot-id" class="button-default button-black button-size-med button-margin">.</button>
+                        </div>
+                        <div class="div-right">
+                            <button id="button-eq-id" class="button-default button-black button-size-tall button-margin">=</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Author -->
+            <div class="row code-author">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                    <p>made by Sillas</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
