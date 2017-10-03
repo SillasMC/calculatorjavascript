@@ -1,10 +1,12 @@
 $(document).ready(function() {
 
-    let digitLimitError = 'Digit Limit Met';
-    let displayMaxSize = 11;
-    let displayPreviewMaxSize = 27;
-    let dot = '.';
-    let patt = new RegExp("[^0-9.]");
+    // Global Variables
+    let digitLimitError         = 'Digit Limit Met';
+    let displayMaxSize          = 11;
+    let displayPreviewMaxSize   = 27;
+    let dot                     = '.';
+    let patt                    = new RegExp("[^0-9.]");
+    let pattNumbers             = new RegExp("[0-9.]", 'g');
 
     // Add value to display
     function displayAdd (display, value, maxLength, displayID) {
@@ -35,15 +37,45 @@ $(document).ready(function() {
         }
     }
 
+    // Clear error msg after button is pressed
+    function clearResult () {
+        if ($("#calc-display-preview-id").text().indexOf('=') >= 0) {
+            clearDisplays();
+        }
+    }
+
     // Clear displays
     function clearDisplays () {
         $("#calc-display-id").text('0');
         $("#calc-display-preview-id").text('0');
     }
 
+    // Realize operation between numbers
+    function doOperation (num1, num2, operator) {
+        let result = 0;
+
+        switch (operator) {
+            case '+':
+                result = num1 + num2;
+                break;
+            case '-':
+                result = num1 - num2;
+                break;
+            case 'x':
+                result = num1 * num2;
+                break;
+            case '\xF7':
+                result = num1 / num2;
+                break;
+        }
+
+        return result;
+    }
+
     // Number buttons action
     $(".button-number").on("click", function() {
         clearError();
+        clearResult();
 
         let number = $("#" + this.id).text();
         let display = $("#calc-display-id").text();
@@ -97,6 +129,43 @@ $(document).ready(function() {
 
     });
 
+    // Result button action
+    $("#button-eq-id").on("click", function() {
+        clearError();
+        clearResult();
+
+        let displayPreview = $("#calc-display-preview-id").text();
+
+        let arrayOfNumbers = displayPreview.split(patt);
+
+        let strAux = displayPreview.replace(pattNumbers, '');
+        let arrayOfOperators = strAux.split('');
+
+        console.log(arrayOfNumbers);
+                console.log(arrayOfOperators);
+        if ((!arrayOfNumbers.length || !arrayOfOperators.length) || (arrayOfNumbers.indexOf('') >= 0))
+            return;
+
+        let result = arrayOfNumbers[0];
+        for (var i = 0; i < arrayOfOperators.length; i++) {
+            result = doOperation(Number(result), Number(arrayOfNumbers[i+1]), arrayOfOperators[i]);
+        }
+
+        let display = '0';
+        // Add number to display
+        if (!displayAdd(display, result, displayMaxSize, "#calc-display-id")){
+            console.error(digitLimitError);
+            return;
+        }
+
+        let operationEnd = '=' + result;
+        // Add number to display preview
+        if (!displayAdd(displayPreview, operationEnd, displayPreviewMaxSize, "#calc-display-preview-id")){
+            console.error(digitLimitError);
+            return;
+        }
+    });
+
     // AC button action
     $("#button-ac-id").on("click", function() {
         clearDisplays();
@@ -107,13 +176,15 @@ $(document).ready(function() {
         $("#calc-display-id").text('0');
 
         clearError();
+        clearResult();
 
         let displayPreview = $("#calc-display-preview-id").text();
 
         if (displayPreview != 0){
             let array = displayPreview.split(patt);
+            let lastNumberSize = array[array.length - 1].length;
 
-            displayPreview = displayPreview.slice(0, displayPreview.length - array[array.length - 1].length);
+            displayPreview = displayPreview.slice(0, displayPreview.length - lastNumberSize);
 
             $("#calc-display-preview-id").text(displayPreview);
         }
@@ -122,11 +193,17 @@ $(document).ready(function() {
     // Dot button action
     $("#button-dot-id").on("click", function() {
         clearError();
+        clearResult();
 
         let display = $("#calc-display-id").text();
         let displayPreview = $("#calc-display-preview-id").text();
 
         if(display.indexOf(dot) < 0){
+
+            if (patt.test(display)){
+                display = '0';
+                displayPreview += display;
+            }
 
             if (!displayAdd(display, dot, displayMaxSize, "#calc-display-id")){
                 console.error(digitLimitError);
