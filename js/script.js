@@ -112,6 +112,10 @@ $(document).ready(function() {
         if ((display.length === 1 && display === '0') || patt.test(display))
             return;
 
+        if ($("#calc-display-preview-id").text().indexOf('=') >= 0) {
+            displayPreview = display;
+        }
+
         // Add operator to display
         $("#calc-display-id").text(operation);
 
@@ -141,8 +145,6 @@ $(document).ready(function() {
         let strAux = displayPreview.replace(pattNumbers, '');
         let arrayOfOperators = strAux.split('');
 
-        console.log(arrayOfNumbers);
-                console.log(arrayOfOperators);
         if ((!arrayOfNumbers.length || !arrayOfOperators.length) || (arrayOfNumbers.indexOf('') >= 0))
             return;
 
